@@ -19,6 +19,9 @@ gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 gem 'faker'
+gem 'bootstrap-sass', '~> 3.3.6'
+gem 'jquery-rails', '~> 4.3.1'
+gem 'seed_dump'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
