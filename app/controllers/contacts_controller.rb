@@ -1,49 +1,58 @@
 class ContactsController < ApplicationController
   def index
-      @contacts = Contact.all
-    end
+    @contacts = Contact.all
 
-    def show
-      @contact = Contact.find_by(id: params[:id])
-    end
+    search_term = params[:search_term]
+    if search_term
+      @contacts = @contacts.where("first_name iLIKE ? OR last_name iLIKE ? OR email iLIKE ?", "%#{search_term}%", "%#{search_term}%", "%#{search_term}%")
+    end 
+  end
 
-    def new
-      
-    end
+  def show
+    @contact = Contact.find_by(id: params[:id])
+  end
 
-    def create
-      contact = Contact.new(
-                            first_name: params[:first_name], 
-                            last_name: params[:last_name], 
-                            email: params[:email], 
-                            phone_number: params[:phone_number]
-                            )
-      contact.save
-      flash[:success] = "Contact created."
-      redirect_to "/contacts/#{contact.id}"
-    end
+  def new
+    
+  end
 
-    def edit
-      @contact = Contact.find_by(id: params[:id])
-    end
+  def create
+    contact = Contact.new(
+                          first_name: params[:first_name], 
+                          middle_name: params[:middle_name], 
+                          last_name: params[:last_name], 
+                          email: params[:email], 
+                          bio: params[:bio], 
+                          phone_number: params[:phone_number]
+                          )
+    contact.save
+    flash[:success] = "Contact created."
+    redirect_to "/contacts/#{contact.id}"
+  end
 
-    def update
-      contact = Contact.find_by(id: params[:id])
-      contact.assign_attributes(
-                                first_name: params[:first_name], 
-                                last_name: params[:last_name], 
-                                email: params[:email], 
-                                phone_number: params[:phone_number]
-                                )
-      contact.save
-      flash[:success] = "Contact updated."
-      redirect_to "/contacts/#{@contact.id}"
-    end
+  def edit
+    @contact = Contact.find_by(id: params[:id])
+  end
 
-    def destroy
-      @contact = Contact.find_by(id: params[:id])
-      @contact.destroy
-      flash[:warning] = "Contact deleted."
-      redirect_to "/"
-    end
+  def update
+    contact = Contact.find_by(id: params[:id])
+    contact.assign_attributes(
+                              first_name: params[:first_name], 
+                              middle_name: params[:middle_name],
+                              last_name: params[:last_name], 
+                              email: params[:email], 
+                              bio: params[:bio], 
+                              phone_number: params[:phone_number]
+                              )
+    contact.save
+    flash[:success] = "Contact updated."
+    redirect_to "/contacts/#{contact.id}"
+  end
+
+  def destroy
+    @contact = Contact.find_by(id: params[:id])
+    @contact.destroy
+    flash[:warning] = "Contact deleted."
+    redirect_to "/"
+  end
 end
