@@ -3,6 +3,7 @@
 <% @contacts.each do |contact| %>
   <div>
     <h2><%= link_to "#{contact.full_name}", "/contacts/#{contact.id}" %></h2>
+    <h6>User: <%= contact.user.name %></h6>
     <h3>Email: <%= contact.email %></h3>
     <h3>Phone: <%= contact.phone_number %></h3>
   </div>

@@ -1,7 +1,15 @@
 <h1><%= @contact.full_name %></h1>
+<h6>User: <%= @contact.user.name %></h6>
 <h2>Email: <%= @contact.email %></h2>
 <h2>Phone: <%= @contact.phone_number %></h2>
 <h6>Updated On: <%= @contact.friendly_updated_at %></h6>
 <%= link_to "Edit", "/contacts/#{@contact.id}/edit" %>
 <%= link_to "Delete", "/contacts/#{@contact.id}", method: :delete %>
+
+<h2>Groups:</h2>
+<ul>
+  <% @contact.groups.each do |group| %>
+    <li><%= group.name %></li>
+  <% end %>
+</ul>
 

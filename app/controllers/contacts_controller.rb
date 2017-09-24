@@ -1,6 +1,17 @@
 class ContactsController < ApplicationController
   def index
-    @contacts = Contact.all
+    if current_user
+      @contacts = current_user.contacts
+    else
+      @contacts = Contact.all
+    end
+
+    group_filter = params[:group]
+
+    if group_filter
+      group = Group.find_by(name: group_filter)
+      @contacts = group.contacts.where(user_id: current_user.id)
+    end
 
     search_term = params[:search_term]
     if search_term
